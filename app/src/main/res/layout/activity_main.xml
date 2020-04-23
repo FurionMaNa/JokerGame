@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/log"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:src="@drawable/main_img_log"
@@ -68,7 +68,7 @@
             android:id="@+id/authBtn"
             android:textSize="11sp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/authText"
             android:background="@drawable/btn_draw"
             android:layout_marginEnd="2dp"
@@ -77,7 +77,7 @@
             android:id="@+id/regBtn"
             android:textSize="11sp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="@string/regText"
             android:background="@drawable/btn_draw"

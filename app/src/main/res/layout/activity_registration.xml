@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/log"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:src="@drawable/main_img_log"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/textMenu"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
             android:id="@+id/regBtn"
             android:textSize="11sp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:text="@string/regText"
             android:background="@drawable/btn_draw"
