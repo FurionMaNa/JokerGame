@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">JokerGame</string>
+    <string name="login">Логин</string>
+    <string name="pass">Пароль</string>
+    <string name="authText">Вход</string>
+    <string name="regText">Регистрация</string>
+    <string name="RegistrationText">Зарегистрируйтесь</string>
+    <string name="RepeatPass">Повтори пароль</string>
+    <string name="nick">Имя</string>
 </resources>
