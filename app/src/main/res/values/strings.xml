@@ -9,4 +9,6 @@
     <string name="nick">Имя</string>
     <string name="SearchRoom">Поиск комнаты</string>
     <string name="SelectRoom">Выбирите комнату:</string>
+    <string name="CreateRoom">Создать комнату</string>
+    <string name="leave_room">Покинуть комнату</string>
 </resources>

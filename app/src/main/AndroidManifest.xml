@@ -14,7 +14,8 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustPan|adjustResize|stateHidden">
-        <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".RoomActivity"></activity>
+        <activity android:name=".RegistrationActivity" />
         <activity android:name=".RoomListActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".MainActivity">
