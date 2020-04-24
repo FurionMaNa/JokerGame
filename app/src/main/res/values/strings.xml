@@ -7,4 +7,6 @@
     <string name="RegistrationText">Зарегистрируйтесь</string>
     <string name="RepeatPass">Повтори пароль</string>
     <string name="nick">Имя</string>
+    <string name="SearchRoom">Поиск комнаты</string>
+    <string name="SelectRoom">Выбирите комнату:</string>
 </resources>

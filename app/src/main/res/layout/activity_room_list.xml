@@ -4,13 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoomListActivity">
-
+    tools:context=".RoomListActivity"
+    android:background="#107DBB">
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/head"
+        android:textSize="25sp"
+        android:textColor="@color/nameTextColor"
+        android:layout_margin="5dp"
+        android:text="@string/SelectRoom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Список комнат"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="356dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="5dp"
+        android:id="@+id/ListRoom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_panel"
+        />
+    <LinearLayout
+        android:id="@+id/bottom_panel"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@+id/ListRoom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <EditText
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:hint="@string/SearchRoom"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/createRoom"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Создать комнату"
+            android:background="@drawable/btn_draw"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="3"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
