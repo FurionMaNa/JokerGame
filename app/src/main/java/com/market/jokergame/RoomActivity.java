@@ -49,7 +49,7 @@ public class RoomActivity extends AppCompatActivity {
     }
 
     private void setRoomInfoTimer() {
-        Timer timer = new Timer();
+        final Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -65,6 +65,13 @@ public class RoomActivity extends AppCompatActivity {
                             players.setLayoutManager(layoutManager1);
                             playerAdapter= new PlayerAdapter(playerListClass.getNick());
                             players.setAdapter(playerAdapter);
+                            if(playerListClass.getNick().size()==4){
+                                timer.cancel();
+                                Intent intent = new Intent(RoomActivity.this, GameActivity.class);
+                                intent.putExtra("id", id);
+                                intent.putExtra("idRoom", idRoom);
+                                startActivity(intent);
+                            }
                             ((TextView)findViewById(R.id.roomName)).setText(playerListClass.getName());
                         } catch (Exception e) {
                             Toast.makeText(RoomActivity.this,"Проблема при подключении к серверу!!!",Toast.LENGTH_SHORT).show();

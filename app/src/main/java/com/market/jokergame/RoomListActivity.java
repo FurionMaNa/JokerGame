@@ -139,18 +139,25 @@ public class RoomListActivity extends AppCompatActivity {
                             roomAdapter=null;
                             roomListClass=deserializeRoomList(server_answer);
                             room=findViewById(R.id.ListRoom);
-                            RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(RoomListActivity.this, LinearLayoutManager.VERTICAL, false);
-                            room.setLayoutManager(layoutManager1);
-                            roomAdapter= new RoomAdapter(roomListClass.getData());
-                            room.setAdapter(roomAdapter);
                             if((roomListClass!=null)&&(roomListClass.getData().size()>0)){
                                 f=true;
+                                for(int i=0;i<roomListClass.getData().size();) {
+                                    if (roomListClass.getData().get(i).getCount()>=4){
+                                        roomListClass.getData().remove(i);
+                                    }else {
+                                        i++;
+                                    }
+                                }
                             }else{
                                 if(f) {
                                     Toast.makeText(RoomListActivity.this, "Комнат нет, создайте свою!", Toast.LENGTH_SHORT).show();
                                     f = false;
                                 }
                             }
+                            RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(RoomListActivity.this, LinearLayoutManager.VERTICAL, false);
+                            room.setLayoutManager(layoutManager1);
+                            roomAdapter= new RoomAdapter(roomListClass.getData());
+                            room.setAdapter(roomAdapter);
                         } catch (Exception e) {
                             Toast.makeText(RoomListActivity.this,"Проблема при подключении к серверу!!!",Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
