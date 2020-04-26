@@ -67,7 +67,7 @@ public class CardsPlayerViewHolder extends RecyclerView.ViewHolder  {
         card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  RoomListActivity.ConnectRoom(v);
+                GameActivity.CardClick(v);
             }
         });
     }
