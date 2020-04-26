@@ -19,10 +19,10 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static Integer step=2;
+    private static Integer step=0;
     private static Integer id=0;
     private static Integer idRoom=0;
-    private GameUserClass gameUserClass;
+    private static GameUserClass gameUserClass;
     private CardsPlayerAdapter cardsPlayerAdapter;
     private RecyclerView cardsUser;
     private static Context context;
@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private static ImageView imgLeft;
     private static ImageView imgRight;
     private static ImageView imgTop;
-
+    private static GameUserClass gameUserClass2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,7 @@ public class GameActivity extends AppCompatActivity {
         idRoom = Integer.parseInt( intents.getSerializableExtra("idRoom").toString());
         try {
             String server_answer = new ThreadRequest().execute("next_step.php?id="+idRoom+"&Round="+step).get();
+            step++;
             setCardsUserTimer();
             setCardsTableTimer();
             //((TextView)findViewById(R.id.roomName)).setText(playerListClass.getName());
@@ -56,32 +57,32 @@ public class GameActivity extends AppCompatActivity {
 
     private static void CardsLoad(ImageView img,CardsClass cardsClass){
         if(cardsClass!=null) {
-            switch (cardsClass.getSuit() + String.valueOf(cardsClass.getWeight().toString())) {
-                case "d6.0":
+            switch (cardsClass.getSuit() + String.valueOf(Float.valueOf(cardsClass.getWeight().toString()))) {
+                case "d6":case "d6.0":
                     img.setImageResource(R.drawable.d6);
                     break;
-                case "d7.0":
+                case "d7":case "d7.0":
                     img.setImageResource(R.drawable.d7);
                     break;
-                case "d8.0":
+                case "d8.0":case "d8":
                     img.setImageResource(R.drawable.d8);
                     break;
-                case "d9.0":
+                case "d9.0":case "d9":
                     img.setImageResource(R.drawable.d9);
                     break;
-                case "d10.0":
+                case "d10.0":case "d10":
                     img.setImageResource(R.drawable.d10);
                     break;
-                case "dj":
+                case "d11.0":case "d11":
                     img.setImageResource(R.drawable.dj);
                     break;
-                case "dq":
+                case "d12.0":case "d12":
                     img.setImageResource(R.drawable.dq);
                     break;
-                case "dk":
+                case "d13.0":case "d13":
                     img.setImageResource(R.drawable.dk);
                     break;
-                case "da":
+                case "d14.0":case "d14":
                     img.setImageResource(R.drawable.da);
                     break;
                 case "j":
@@ -99,16 +100,16 @@ public class GameActivity extends AppCompatActivity {
                 case "c10.0":
                     img.setImageResource(R.drawable.c10);
                     break;
-                case "cj":
+                case "c11.0":
                     img.setImageResource(R.drawable.cj);
                     break;
-                case "cq":
+                case "c12.0":
                     img.setImageResource(R.drawable.cq);
                     break;
-                case "ck":
+                case "c13.0":
                     img.setImageResource(R.drawable.ck);
                     break;
-                case "ca":
+                case "c14.0":
                     img.setImageResource(R.drawable.ca);
                     break;
                 case "h6.0":
@@ -126,16 +127,16 @@ public class GameActivity extends AppCompatActivity {
                 case "h10.0":
                     img.setImageResource(R.drawable.h10);
                     break;
-                case "hj":
+                case "h11.0":
                     img.setImageResource(R.drawable.hj);
                     break;
-                case "hq":
+                case "h12.0":
                     img.setImageResource(R.drawable.hq);
                     break;
-                case "hk":
+                case "h13.0":
                     img.setImageResource(R.drawable.hk);
                     break;
-                case "ha":
+                case "h14.0":
                     img.setImageResource(R.drawable.ha);
                     break;
                 case "s6.0":
@@ -153,16 +154,16 @@ public class GameActivity extends AppCompatActivity {
                 case "s10.0":
                     img.setImageResource(R.drawable.s10);
                     break;
-                case "sj":
+                case "s11.0":
                     img.setImageResource(R.drawable.sj);
                     break;
-                case "sq":
+                case "s12.0":
                     img.setImageResource(R.drawable.sq);
                     break;
-                case "sk":
+                case "s13.0":
                     img.setImageResource(R.drawable.sk);
                     break;
-                case "sa":
+                case "s14.0":
                     img.setImageResource(R.drawable.sa);
                     break;
             }
@@ -179,7 +180,11 @@ public class GameActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             String server_answer = new ThreadRequest().execute("get_table.php?id="+idRoom).get();
-                            GameUserClass gameUserClass2=deserializeGameCardsList(server_answer);
+                            gameUserClass2=deserializeGameCardsList(server_answer);
+
+                            if(gameUserClass2.getMove()==id) {
+                                Toast.makeText(context,"Ваш ход",Toast.LENGTH_SHORT).show();
+                            }
                             if(gameUserClass2.getFirstId()==id){
                                 if((gameUserClass2.getFirstPlayer()!=null)&&(gameUserClass2.getFirstPlayer().size()>0)){
                                     CardsLoad(imgBottom,gameUserClass2.getFirstPlayer().get(0));
@@ -250,73 +255,79 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public static void CardClick(View v) {
-        try {
-            String server_answer = new ThreadRequest().execute("put_card.php?id="+idRoom+"&U="+id+"&suit="+((CardsClass)v.getTag()).getSuit()+"&weight="+((CardsClass)v.getTag()).getWeight()+"&Round="+step).get();
-
-            server_answer = new ThreadRequest().execute("get_table.php?id="+idRoom).get();
-            GameUserClass gameUserClass2=deserializeGameCardsList(server_answer);
-            if(gameUserClass2.getFirstId()==id){
-                if((gameUserClass2.getFirstPlayer()!=null)&&(gameUserClass2.getFirstPlayer().size()>0)){
-                    CardsLoad(imgBottom,gameUserClass2.getFirstPlayer().get(0));
-                }
-                if((gameUserClass2.getSecondPlayer()!=null)&&(gameUserClass2.getSecondPlayer().size()>0)){
-                    CardsLoad(imgLeft,gameUserClass2.getSecondPlayer().get(0));
-                }
-                if((gameUserClass2.getThirdPlayer()!=null)&&(gameUserClass2.getThirdPlayer().size()>0)){
-                    CardsLoad(imgTop,gameUserClass2.getThirdPlayer().get(0));
-                }
-                if((gameUserClass2.getForthPlayer()!=null)&&(gameUserClass2.getForthPlayer().size()>0)){
-                    CardsLoad(imgRight,gameUserClass2.getForthPlayer().get(0));
-                }
-            }else{
-                if(gameUserClass2.getSecondId()==id){
-                    if((gameUserClass2.getFirstPlayer()!=null)&&(gameUserClass2.getFirstPlayer().size()>0)){
-                        CardsLoad(imgRight,gameUserClass2.getFirstPlayer().get(0));
-                    }
-                    if((gameUserClass2.getSecondPlayer()!=null)&&(gameUserClass2.getSecondPlayer().size()>0)){
-                        CardsLoad(imgBottom,gameUserClass2.getSecondPlayer().get(0));
-                    }
-                    if((gameUserClass2.getThirdPlayer()!=null)&&(gameUserClass2.getThirdPlayer().size()>0)){
-                        CardsLoad(imgLeft,gameUserClass2.getThirdPlayer().get(0));
-                    }
-                    if((gameUserClass2.getForthPlayer()!=null)&&(gameUserClass2.getForthPlayer().size()>0)){
-                        CardsLoad(imgTop,gameUserClass2.getForthPlayer().get(0));
-                    }
+        if(gameUserClass2.getMove()==id) {
+            try {
+                String server_answer = new ThreadRequest().execute("put_card.php?id=" + idRoom + "&U=" + id + "&suit=" + ((CardsClass) v.getTag()).getSuit() + "&weight=" + ((CardsClass) v.getTag()).getWeight() + "&Round=" + step).get();
+                if(!server_answer.equals("errorGame")){
+                    server_answer = new ThreadRequest().execute("move_next_player.php?id=" + idRoom + "&U=" + id + "&Round=" +step).get();
                 }else{
-                    if(gameUserClass2.getThirdId()==id){
-                        if((gameUserClass2.getFirstPlayer()!=null)&&(gameUserClass2.getFirstPlayer().size()>0)){
-                            CardsLoad(imgTop,gameUserClass2.getFirstPlayer().get(0));
+                    Toast.makeText(context,"Данной картой сходить нельзя!",Toast.LENGTH_SHORT).show();
+                }
+                server_answer = new ThreadRequest().execute("get_table.php?id=" + idRoom).get();
+                GameUserClass gameUserClass2 = deserializeGameCardsList(server_answer);
+                if (gameUserClass2.getFirstId() == id) {
+                    if ((gameUserClass2.getFirstPlayer() != null) && (gameUserClass2.getFirstPlayer().size() > 0)) {
+                        CardsLoad(imgBottom, gameUserClass2.getFirstPlayer().get(0));
+                    }
+                    if ((gameUserClass2.getSecondPlayer() != null) && (gameUserClass2.getSecondPlayer().size() > 0)) {
+                        CardsLoad(imgLeft, gameUserClass2.getSecondPlayer().get(0));
+                    }
+                    if ((gameUserClass2.getThirdPlayer() != null) && (gameUserClass2.getThirdPlayer().size() > 0)) {
+                        CardsLoad(imgTop, gameUserClass2.getThirdPlayer().get(0));
+                    }
+                    if ((gameUserClass2.getForthPlayer() != null) && (gameUserClass2.getForthPlayer().size() > 0)) {
+                        CardsLoad(imgRight, gameUserClass2.getForthPlayer().get(0));
+                    }
+                } else {
+                    if (gameUserClass2.getSecondId() == id) {
+                        if ((gameUserClass2.getFirstPlayer() != null) && (gameUserClass2.getFirstPlayer().size() > 0)) {
+                            CardsLoad(imgRight, gameUserClass2.getFirstPlayer().get(0));
                         }
-                        if((gameUserClass2.getSecondPlayer()!=null)&&(gameUserClass2.getSecondPlayer().size()>0)){
-                            CardsLoad(imgRight,gameUserClass2.getSecondPlayer().get(0));
+                        if ((gameUserClass2.getSecondPlayer() != null) && (gameUserClass2.getSecondPlayer().size() > 0)) {
+                            CardsLoad(imgBottom, gameUserClass2.getSecondPlayer().get(0));
                         }
-                        if((gameUserClass2.getThirdPlayer()!=null)&&(gameUserClass2.getThirdPlayer().size()>0)){
-                            CardsLoad(imgBottom,gameUserClass2.getThirdPlayer().get(0));
+                        if ((gameUserClass2.getThirdPlayer() != null) && (gameUserClass2.getThirdPlayer().size() > 0)) {
+                            CardsLoad(imgLeft, gameUserClass2.getThirdPlayer().get(0));
                         }
-                        if((gameUserClass2.getForthPlayer()!=null)&&(gameUserClass2.getForthPlayer().size()>0)){
-                            CardsLoad(imgLeft,gameUserClass2.getForthPlayer().get(0));
+                        if ((gameUserClass2.getForthPlayer() != null) && (gameUserClass2.getForthPlayer().size() > 0)) {
+                            CardsLoad(imgTop, gameUserClass2.getForthPlayer().get(0));
                         }
-                    }else{
-                        if(gameUserClass2.getForthId()==id){
-                            if((gameUserClass2.getFirstPlayer()!=null)&&(gameUserClass2.getFirstPlayer().size()>0)){
-                                CardsLoad(imgLeft,gameUserClass2.getFirstPlayer().get(0));
+                    } else {
+                        if (gameUserClass2.getThirdId() == id) {
+                            if ((gameUserClass2.getFirstPlayer() != null) && (gameUserClass2.getFirstPlayer().size() > 0)) {
+                                CardsLoad(imgTop, gameUserClass2.getFirstPlayer().get(0));
                             }
-                            if((gameUserClass2.getSecondPlayer()!=null)&&(gameUserClass2.getSecondPlayer().size()>0)){
-                                CardsLoad(imgTop,gameUserClass2.getSecondPlayer().get(0));
+                            if ((gameUserClass2.getSecondPlayer() != null) && (gameUserClass2.getSecondPlayer().size() > 0)) {
+                                CardsLoad(imgRight, gameUserClass2.getSecondPlayer().get(0));
                             }
-                            if((gameUserClass2.getThirdPlayer()!=null)&&(gameUserClass2.getThirdPlayer().size()>0)){
-                                CardsLoad(imgRight,gameUserClass2.getThirdPlayer().get(0));
+                            if ((gameUserClass2.getThirdPlayer() != null) && (gameUserClass2.getThirdPlayer().size() > 0)) {
+                                CardsLoad(imgBottom, gameUserClass2.getThirdPlayer().get(0));
                             }
-                            if((gameUserClass2.getForthPlayer()!=null)&&(gameUserClass2.getForthPlayer().size()>0)){
-                                CardsLoad(imgBottom,gameUserClass2.getForthPlayer().get(0));
+                            if ((gameUserClass2.getForthPlayer() != null) && (gameUserClass2.getForthPlayer().size() > 0)) {
+                                CardsLoad(imgLeft, gameUserClass2.getForthPlayer().get(0));
+                            }
+                        } else {
+                            if (gameUserClass2.getForthId() == id) {
+                                if ((gameUserClass2.getFirstPlayer() != null) && (gameUserClass2.getFirstPlayer().size() > 0)) {
+                                    CardsLoad(imgLeft, gameUserClass2.getFirstPlayer().get(0));
+                                }
+                                if ((gameUserClass2.getSecondPlayer() != null) && (gameUserClass2.getSecondPlayer().size() > 0)) {
+                                    CardsLoad(imgTop, gameUserClass2.getSecondPlayer().get(0));
+                                }
+                                if ((gameUserClass2.getThirdPlayer() != null) && (gameUserClass2.getThirdPlayer().size() > 0)) {
+                                    CardsLoad(imgRight, gameUserClass2.getThirdPlayer().get(0));
+                                }
+                                if ((gameUserClass2.getForthPlayer() != null) && (gameUserClass2.getForthPlayer().size() > 0)) {
+                                    CardsLoad(imgBottom, gameUserClass2.getForthPlayer().get(0));
+                                }
                             }
                         }
                     }
                 }
+            } catch (Exception e) {
+                Toast.makeText(context, "Проблема при подключении к серверу!!!", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            Toast.makeText(context,"Проблема при подключении к серверу!!!",Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
         }
     }
 

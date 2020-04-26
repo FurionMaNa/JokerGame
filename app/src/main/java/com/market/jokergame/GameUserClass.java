@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class GameUserClass {
 
+    private Integer move;
     private Integer round;
     private CardsClass trump;
     private Integer firstId;
@@ -15,7 +16,8 @@ public class GameUserClass {
     private ArrayList<CardsClass> thirdPlayer;
     private ArrayList<CardsClass> forthPlayer;
 
-    public GameUserClass(Integer round, CardsClass trump, Integer firstId, Integer secondId, Integer thirdId, Integer forthId, ArrayList<CardsClass> firstPlayer, ArrayList<CardsClass> secondPlayer, ArrayList<CardsClass> thirdPlayer, ArrayList<CardsClass> forthPlayer) {
+    public GameUserClass(Integer move, Integer round, CardsClass trump, Integer firstId, Integer secondId, Integer thirdId, Integer forthId, ArrayList<CardsClass> firstPlayer, ArrayList<CardsClass> secondPlayer, ArrayList<CardsClass> thirdPlayer, ArrayList<CardsClass> forthPlayer) {
+        this.move = move;
         this.round = round;
         this.trump = trump;
         this.firstId = firstId;
@@ -26,6 +28,14 @@ public class GameUserClass {
         this.secondPlayer = secondPlayer;
         this.thirdPlayer = thirdPlayer;
         this.forthPlayer = forthPlayer;
+    }
+
+    public Integer getMove() {
+        return move;
+    }
+
+    public void setMove(Integer move) {
+        this.move = move;
     }
 
     public Integer getRound() {
