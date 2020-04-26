@@ -33,7 +33,7 @@ public class CardsPlayerViewHolder extends RecyclerView.ViewHolder  {
             case "dk": card.setImageResource(R.drawable.dk);break;
             case "da": card.setImageResource(R.drawable.da);break;
 
-            case "c6.0": card.setImageResource(R.drawable.c6);break;
+            case "j": card.setImageResource(R.drawable.j);break;
             case "c7.0": card.setImageResource(R.drawable.c7);break;
             case "c8.0": card.setImageResource(R.drawable.c8);break;
             case "c9.0": card.setImageResource(R.drawable.c9);break;

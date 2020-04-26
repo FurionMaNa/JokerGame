@@ -133,7 +133,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/top_card"
+                android:id="@+id/left_card"
                 android:layout_width="100dp"
                 android:layout_height="100dp"></ImageView>
         </LinearLayout>
@@ -156,7 +156,7 @@
                 android:gravity="end">
 
                 <ImageView
-                    android:id="@+id/left_card"
+                    android:id="@+id/top_card"
                     android:layout_width="100dp"
                     android:layout_height="100dp"></ImageView>
             </LinearLayout>
@@ -168,7 +168,7 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:id="@+id/right_card"
+                    android:id="@+id/bottom_card"
                     android:layout_width="100dp"
                     android:layout_height="100dp"></ImageView>
 
@@ -187,7 +187,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/bottom_card"
+                android:id="@+id/right_card"
                 android:layout_width="100dp"
                 android:layout_height="100dp" />
 

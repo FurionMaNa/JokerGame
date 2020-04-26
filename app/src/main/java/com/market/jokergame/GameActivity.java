@@ -19,7 +19,7 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
-    private Integer step=2;
+    private static Integer step=2;
     private static Integer id=0;
     private static Integer idRoom=0;
     private GameUserClass gameUserClass;
@@ -55,43 +55,117 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private static void CardsLoad(ImageView img,CardsClass cardsClass){
-        switch (cardsClass.getSuit()+String.valueOf(cardsClass.getWeight().toString())){
-            case "d6.0": img.setImageResource(R.drawable.d6);break;
-            case "d7.0": img.setImageResource(R.drawable.d7);break;
-            case "d8.0": img.setImageResource(R.drawable.d8);break;
-            case "d9.0": img.setImageResource(R.drawable.d9);break;
-            case "d10.0":img.setImageResource(R.drawable.d10);break;
-            case "dj":   img.setImageResource(R.drawable.dj);break;
-            case "dq":   img.setImageResource(R.drawable.dq);break;
-            case "dk":   img.setImageResource(R.drawable.dk);break;
-            case "da":   img.setImageResource(R.drawable.da);break;
-            case "c6.0": img.setImageResource(R.drawable.c6);break;
-            case "c7.0": img.setImageResource(R.drawable.c7);break;
-            case "c8.0": img.setImageResource(R.drawable.c8);break;
-            case "c9.0": img.setImageResource(R.drawable.c9);break;
-            case "c10.0":img.setImageResource(R.drawable.c10);break;
-            case "cj":   img.setImageResource(R.drawable.cj);break;
-            case "cq":   img.setImageResource(R.drawable.cq);break;
-            case "ck":   img.setImageResource(R.drawable.ck);break;
-            case "ca":   img.setImageResource(R.drawable.ca);break;
-            case "h6.0": img.setImageResource(R.drawable.h6);break;
-            case "h7.0": img.setImageResource(R.drawable.h7);break;
-            case "h8.0": img.setImageResource(R.drawable.h8);break;
-            case "h9.0": img.setImageResource(R.drawable.h9);break;
-            case "h10.0":img.setImageResource(R.drawable.h10);break;
-            case "hj":   img.setImageResource(R.drawable.hj);break;
-            case "hq":   img.setImageResource(R.drawable.hq);break;
-            case "hk":   img.setImageResource(R.drawable.hk);break;
-            case "ha":   img.setImageResource(R.drawable.ha);break;
-            case "s6.0": img.setImageResource(R.drawable.s6);break;
-            case "s7.0": img.setImageResource(R.drawable.s7);break;
-            case "s8.0": img.setImageResource(R.drawable.s8);break;
-            case "s9.0": img.setImageResource(R.drawable.s9);break;
-            case "s10.0":img.setImageResource(R.drawable.s10);break;
-            case "sj":   img.setImageResource(R.drawable.sj);break;
-            case "sq":   img.setImageResource(R.drawable.sq);break;
-            case "sk":   img.setImageResource(R.drawable.sk);break;
-            case "sa":   img.setImageResource(R.drawable.sa);break;
+        if(cardsClass!=null) {
+            switch (cardsClass.getSuit() + String.valueOf(cardsClass.getWeight().toString())) {
+                case "d6.0":
+                    img.setImageResource(R.drawable.d6);
+                    break;
+                case "d7.0":
+                    img.setImageResource(R.drawable.d7);
+                    break;
+                case "d8.0":
+                    img.setImageResource(R.drawable.d8);
+                    break;
+                case "d9.0":
+                    img.setImageResource(R.drawable.d9);
+                    break;
+                case "d10.0":
+                    img.setImageResource(R.drawable.d10);
+                    break;
+                case "dj":
+                    img.setImageResource(R.drawable.dj);
+                    break;
+                case "dq":
+                    img.setImageResource(R.drawable.dq);
+                    break;
+                case "dk":
+                    img.setImageResource(R.drawable.dk);
+                    break;
+                case "da":
+                    img.setImageResource(R.drawable.da);
+                    break;
+                case "j":
+                    img.setImageResource(R.drawable.j);
+                    break;
+                case "c7.0":
+                    img.setImageResource(R.drawable.c7);
+                    break;
+                case "c8.0":
+                    img.setImageResource(R.drawable.c8);
+                    break;
+                case "c9.0":
+                    img.setImageResource(R.drawable.c9);
+                    break;
+                case "c10.0":
+                    img.setImageResource(R.drawable.c10);
+                    break;
+                case "cj":
+                    img.setImageResource(R.drawable.cj);
+                    break;
+                case "cq":
+                    img.setImageResource(R.drawable.cq);
+                    break;
+                case "ck":
+                    img.setImageResource(R.drawable.ck);
+                    break;
+                case "ca":
+                    img.setImageResource(R.drawable.ca);
+                    break;
+                case "h6.0":
+                    img.setImageResource(R.drawable.h6);
+                    break;
+                case "h7.0":
+                    img.setImageResource(R.drawable.h7);
+                    break;
+                case "h8.0":
+                    img.setImageResource(R.drawable.h8);
+                    break;
+                case "h9.0":
+                    img.setImageResource(R.drawable.h9);
+                    break;
+                case "h10.0":
+                    img.setImageResource(R.drawable.h10);
+                    break;
+                case "hj":
+                    img.setImageResource(R.drawable.hj);
+                    break;
+                case "hq":
+                    img.setImageResource(R.drawable.hq);
+                    break;
+                case "hk":
+                    img.setImageResource(R.drawable.hk);
+                    break;
+                case "ha":
+                    img.setImageResource(R.drawable.ha);
+                    break;
+                case "s6.0":
+                    img.setImageResource(R.drawable.s6);
+                    break;
+                case "s7.0":
+                    img.setImageResource(R.drawable.s7);
+                    break;
+                case "s8.0":
+                    img.setImageResource(R.drawable.s8);
+                    break;
+                case "s9.0":
+                    img.setImageResource(R.drawable.s9);
+                    break;
+                case "s10.0":
+                    img.setImageResource(R.drawable.s10);
+                    break;
+                case "sj":
+                    img.setImageResource(R.drawable.sj);
+                    break;
+                case "sq":
+                    img.setImageResource(R.drawable.sq);
+                    break;
+                case "sk":
+                    img.setImageResource(R.drawable.sk);
+                    break;
+                case "sa":
+                    img.setImageResource(R.drawable.sa);
+                    break;
+            }
         }
     }
 
@@ -177,7 +251,9 @@ public class GameActivity extends AppCompatActivity {
 
     public static void CardClick(View v) {
         try {
-            String server_answer = new ThreadRequest().execute("get_table.php?id="+idRoom).get();
+            String server_answer = new ThreadRequest().execute("put_card.php?id="+idRoom+"&U="+id+"&suit="+((CardsClass)v.getTag()).getSuit()+"&weight="+((CardsClass)v.getTag()).getWeight()+"&Round="+step).get();
+
+            server_answer = new ThreadRequest().execute("get_table.php?id="+idRoom).get();
             GameUserClass gameUserClass2=deserializeGameCardsList(server_answer);
             if(gameUserClass2.getFirstId()==id){
                 if((gameUserClass2.getFirstPlayer()!=null)&&(gameUserClass2.getFirstPlayer().size()>0)){
